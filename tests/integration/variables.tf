@@ -46,3 +46,27 @@ variable "organization_tags" {
   description = "[Optional] Provide a Map of Tags to associate with all organizations"
   default     = {}
 }
+
+# Variable Management for Harness Projects
+variable "project_name" {
+  type        = string
+  description = "[Required] Provide a project name.  Must be two or more characters"
+}
+
+variable "project_color" {
+  type        = string
+  description = "[Optional] (String) Color of the project."
+  default     = null
+}
+
+variable "project_description" {
+  type        = string
+  description = "[Optional] (String) Description of the resource."
+  default     = "Harness Project created via Terraform"
+}
+
+variable "project_tags" {
+  type        = map(any)
+  description = "[Optional] Provide a Map of Tags to associate with the project"
+  default     = {}
+}
