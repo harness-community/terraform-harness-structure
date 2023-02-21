@@ -24,7 +24,7 @@ ifeq ($(PROJECT_DIR),)
 	PROJECT_DIR:=${PWD}
 endif
 ifeq ($(TEMPLATE_DIR),)
-	TEMPLATE_DIR:=
+	TEMPLATE_DIR:=tests/integration
 endif
 ifeq ($(RESOURCE),)
 	RESOURCE:=
@@ -64,6 +64,10 @@ output:
 .PHONY: fmt
 fmt:
 	${DOCKER_RUN} fmt -recursive ${WORKDIR}/${TEMPLATE_DIR}
+
+.PHONY: fmt_all
+fmt_all:
+	${DOCKER_RUN} fmt -recursive ${WORKDIR}
 
 .PHONY: testing_cleanup
 testing_cleanup:
