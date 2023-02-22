@@ -71,7 +71,7 @@ fmt_all:
 
 .PHONY: testing_cleanup
 testing_cleanup:
-	@(rm -rf .terraform)
+	@(rm -rf ${TEMPLATE_DIR}/.terraform)
 
 .PHONY: cycle
 cycle: destroy apply plan

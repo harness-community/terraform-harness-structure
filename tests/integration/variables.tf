@@ -26,47 +26,5 @@ variable "harness_platform_key" {
 variable "global_tags" {
   type        = map(any)
   description = "[Optional] Provide a Map of Tags to associate with all organizations and resources create"
-  default     = {}
-}
-
-# Organization Setup Details
-variable "organization_name" {
-  type        = string
-  description = "[Required] Provide an organization name.  Must be two or more characters"
-}
-
-variable "organization_description" {
-  type        = string
-  description = "[Optional] Provide an organization description.  Must be six or more characters"
-  default     = "Harness Organization for organization name"
-}
-
-variable "organization_tags" {
-  type        = map(any)
-  description = "[Optional] Provide a Map of Tags to associate with all organizations"
-  default     = {}
-}
-
-# Variable Management for Harness Projects
-variable "project_name" {
-  type        = string
-  description = "[Required] Provide a project name.  Must be two or more characters"
-}
-
-variable "project_color" {
-  type        = string
-  description = "[Optional] (String) Color of the project."
-  default     = null
-}
-
-variable "project_description" {
-  type        = string
-  description = "[Optional] (String) Description of the resource."
-  default     = "Harness Project created via Terraform"
-}
-
-variable "project_tags" {
-  type        = map(any)
-  description = "[Optional] Provide a Map of Tags to associate with the project"
-  default     = {}
+  default = {}
 }

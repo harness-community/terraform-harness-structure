@@ -2,10 +2,10 @@ module "organizations" {
 
   source = "../../organizations"
 
-  name        = "${var.prefix}-${var.organization_name}"
-  description = var.organization_description
-  tags        = var.organization_tags
-  global_tags = var.global_tags
+  name        = "${var.prefix}-terraform-harness-structure"
+  description = "Harness Organization Created by Terraform Module"
+  tags        = {}
+  global_tags = local.common_tags
 }
 
 module "projects" {
@@ -15,10 +15,27 @@ module "projects" {
 
   source = "../../projects"
 
-  name            = var.project_name
+  name            = "terraform-harness-modules-project"
+  description     = "Testing Project for Terraform Module"
   organization_id = module.organizations.organization_details.id
-  color           = var.project_color
-  description     = var.project_description
-  tags            = var.project_tags
-  global_tags     = var.global_tags
+  tags            = {}
+  global_tags     = local.common_tags
+}
+
+module "secret_text" {
+  depends_on = [
+    module.projects.project_details
+  ]
+
+  source = "../../secrets/text"
+
+  name            = "terraform-test-secret"
+  description     = "Harness Secret Text created via Terraform"
+  organization_id = module.organizations.organization_details.id
+  project_id      = module.projects.project_details.id
+  secret_manager  = "harnessSecretManager"
+  value_type      = "Inline"
+  value           = "Nothing"
+  tags            = {}
+
 }
