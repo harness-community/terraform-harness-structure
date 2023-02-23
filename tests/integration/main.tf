@@ -39,3 +39,19 @@ module "secret_text" {
   tags            = {}
 
 }
+
+module "variables" {
+  depends_on = [
+    module.projects.project_details
+  ]
+
+  source = "../../variables"
+
+  name            = "terraform-test-var"
+  description     = "Harness Variable created via Terraform"
+  organization_id = module.organizations.organization_details.id
+  project_id      = module.projects.project_details.id
+  value           = "Nothing"
+  tags            = {}
+
+}
