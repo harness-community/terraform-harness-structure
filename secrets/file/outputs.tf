@@ -1,13 +1,13 @@
 ####################
 #
-# Harness Secret Text Outputs
+# Harness Secret File Outputs
 #
 ####################
 output "secret_details" {
   depends_on = [
     time_sleep.secret_setup
   ]
-  value     = harness_platform_secret_text.text
+  value     = harness_platform_secret_file.file
   sensitive = true
 }
 

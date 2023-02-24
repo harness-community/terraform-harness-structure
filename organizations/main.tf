@@ -1,18 +1,11 @@
+####################
+#
+# Harness Organization Setup
+#
+####################
 resource "harness_platform_organization" "organization" {
   # [Required] (String) Unique identifier of the resource.
-  identifier = (
-    lower(
-      replace(
-        replace(
-          var.name,
-          " ",
-          "_"
-        ),
-        "-",
-        "_"
-      )
-    )
-  )
+  identifier = local.fmt_identifier
   # [Required] (String) Name of the resource.
   name = var.name
 

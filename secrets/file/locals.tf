@@ -1,6 +1,6 @@
 ####################
 #
-# Harness Organization Local Variables
+# Harness Secret File Local Variables
 #
 ####################
 locals {
@@ -21,22 +21,16 @@ locals {
   ])
 
   fmt_identifier = (
-    var.identifier == null
-    ?
-    (
-      lower(
+    lower(
+      replace(
         replace(
-          replace(
-            var.name,
-            " ",
-            "_"
-          ),
-          "-",
+          var.name,
+          " ",
           "_"
-        )
+        ),
+        "-",
+        "_"
       )
     )
-    :
-    var.identifier
   )
 }

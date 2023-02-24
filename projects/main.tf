@@ -1,6 +1,14 @@
+####################
+#
+# Harness Project Setup
+#
+####################
+
+# Allows for automatic color selection for projects when
+# var.color is not provided.
 resource "random_id" "color_picker" {
   keepers = {
-    # Generate a new id each time we switch to a new AMI id
+    # Generate a new id each time we switch to a new resource id
     identifier = local.fmt_identifier
   }
 

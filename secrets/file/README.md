@@ -1,8 +1,8 @@
-# Terraform Modules for Harness Variables
-Terraform Module for creating and managing Harness Platform Variables
+# Terraform Modules for Harness Secrets - File
+Terraform Module for creating and managing Harness File Secrets
 
 ## Summary
-This module handle the creation and managment of Platform Variables by leveraging the Harness Terraform provider
+This module handle the creation and managment of File Secrets by leveraging the Harness Terraform provider
 
 ## Providers
 
@@ -26,7 +26,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
 | name | [Required] Provide a secrets name.  Must be two or more characters | string | | X |
-| value | [Required] Value of the Variable | string | | X |
+| secret_manager | [Required] (String) Identifier of the Secret Manager used to manage the secret. | string | harnessSecretManager | X |
+| file_path | [Required] (String) Path of the file containing secret value | string | | X |
 | identifier | [Optional] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | organization_id | [Optional] Provide an organization reference ID.  Must exist before execution | string | null | |
 | project_id | [Optional] Provide an project reference ID.  Must exist before execution | string | null | |
@@ -35,46 +36,36 @@ _Note: When the identifier variable is not provided, the module will automatical
 | global_tag | [Optional] Provide a Map of Tags to associate with the project and resources created | map(string) | {} | |
 
 ## Examples
-### Add text as a variable within the Account
+### Add a single file as a secret within the Account
 ```
-module "harness_variables" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//variables"
+module "secret" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
 
-  name        = "test_var"
-  value       = "myvalue"
+  name        = "test_file"
+  file_path   = "file.yml"
 }
 ```
 
-### Add text as a variable within the Project
+### Add a single file as a secret within the Project
 ```
-module "harness_variables" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//variables"
+module "secret" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
 
-  name            = "test_var"
+  name            = "test_file"
   organization_id = "myorg"
   project_id      = "myproject"
-  value           = "myvalue"
+  file_path       = "file.yml"
 }
 ```
 
 
-### Add multiple variables in a project
+### Add multiple file secrets in a project
 ```
-variable "harness_variables" {
-    type = list(map)
+variable "secret_files" {
+    type = list(string)
     default = [
-        {
-            name = "test1"
-            value = "value1"
-        },
-        {
-            name = "test2"
-            value = "value2"
-        },
-        {
-            name = "test3"
-            value = "value3"
-        }
+        "defaults.yml",
+        "scripts/script.sh"
     ]
 }
 
@@ -85,15 +76,16 @@ variable "global_tags" {
     }
 }
 
-module "harness_variables" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//variables"
-  for_each = { for harness_variable in var.harness_variables : harness_variable.name => harness_variable}
+module "secrets" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
+  for_each = { for secret in var.secret_files : basename(secret) => secret}
 
-  name            = each.value.name
-  description     = "My Var - ${each.value.name}"
+  name            = each.key
+  description     = "File contents - ${each.key}"
   organization_id = "myorg"
   project_id      = "myproject"
-  value           = each.value.value
+  secret_manager  = "harnessSecretManager"
+  file_path       = each.value
   global_tags     = var.global_tags
 }
 

@@ -1,11 +1,11 @@
 ####################
 #
-# Harness Project Variables
+# Harness Secret File Variables
 #
 ####################
 variable "identifier" {
   type        = string
-  description = "[Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
+  description = "[Required] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
   default     = null
 
   validation {
@@ -18,14 +18,13 @@ variable "identifier" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'.
-            Note: If not set, Terraform will auto-assign an identifier based on the name of the resource
+            * [Required] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'.
         EOF
   }
 }
 variable "name" {
   type        = string
-  description = "[Required] Provide a project name.  Must be two or more characters"
+  description = "[Required] Provide a secrets name.  Must be two or more characters"
 
   validation {
     condition = (
@@ -33,7 +32,7 @@ variable "name" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] Provide a project name.  Must be two or more characters.
+            * [Required] Provide a secrets name.  Must be two or more characters.
         EOF
   }
 }
@@ -41,34 +40,37 @@ variable "name" {
 variable "organization_id" {
   type        = string
   description = "[Required] Provide an organization reference ID.  Must exist before execution"
-
-  validation {
-    condition = (
-      length(var.organization_id) > 2
-    )
-    error_message = <<EOF
-        Validation of an object failed.
-            * [Required] Provide an existing organization id.  Must exist before execution.
-        EOF
-  }
-}
-
-variable "color" {
-  type        = string
-  description = "[Optional] (String) Color of the project."
   default     = null
 
   validation {
     condition = (
-      var.color != null
-      ?
-        can(regex("^#([A-Fa-f0-9]{6})", var.color))
-      :
-        true
+      anytrue([
+        can(regex("^([a-zA-Z0-9_]*)", var.organization_id)),
+        var.organization_id == null
+      ])
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide Project Color Identifier.  Must be a valid Hex Color code.
+            * [Required] Provide an organization name.  Must exist before execution.
+        EOF
+  }
+}
+
+variable "project_id" {
+  type        = string
+  description = "[Required] Provide an project reference ID.  Must exist before execution"
+  default     = null
+
+  validation {
+    condition = (
+      anytrue([
+        can(regex("^([a-zA-Z0-9_]*)", var.project_id)),
+        var.project_id == null
+      ])
+    )
+    error_message = <<EOF
+        Validation of an object failed.
+            * [Required] Provide an project name.  Must exist before execution.
         EOF
   }
 }
@@ -76,7 +78,7 @@ variable "color" {
 variable "description" {
   type        = string
   description = "[Optional] (String) Description of the resource."
-  default     = "Harness Project created via Terraform"
+  default     = "Harness Secret created via Terraform"
 
   validation {
     condition = (
@@ -89,9 +91,33 @@ variable "description" {
   }
 }
 
+variable "secret_manager" {
+  type        = string
+  description = "[Required] (String) Identifier of the Secret Manager used to manage the secret."
+  default     = "harnessSecretManager"
+
+  validation {
+    condition = (
+      anytrue([
+        can(regex("^([a-zA-Z0-9.]*)", var.secret_manager)),
+        var.secret_manager != null
+      ])
+    )
+    error_message = <<EOF
+        Validation of an object failed.
+            * [Required] (String) Identifier of the Secret Manager used to manage the secret.
+        EOF
+  }
+}
+
+variable "file_path" {
+  type        = string
+  description = "[Required] (String) Path of the file containing secret value"
+}
+
 variable "tags" {
-  type        = map(any)
-  description = "[Optional] Provide a Map of Tags to associate with the project"
+  type        = map(string)
+  description = "[Optional] Provide a Map of Tags to associate with the secret"
   default     = {}
 
   validation {
@@ -100,13 +126,13 @@ variable "tags" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Optional] Provide a Map of Tags to associate with the project
+            * [Optional] Provide a Map of Tags to associate with the secret
         EOF
   }
 }
 
 variable "global_tags" {
-  type        = map(any)
+  type        = map(string)
   description = "[Optional] Provide a Map of Tags to associate with the project and resources created"
   default     = {}
 

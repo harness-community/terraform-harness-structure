@@ -1,3 +1,8 @@
+####################
+#
+# Harness Project Local Variables
+#
+####################
 locals {
   required_tags = [
     "created_by:Terraform"
@@ -16,16 +21,22 @@ locals {
   ])
 
   fmt_identifier = (
-    lower(
-      replace(
+    var.identifier == null
+    ?
+    (
+      lower(
         replace(
-          var.name,
-          " ",
+          replace(
+            var.name,
+            " ",
+            "_"
+          ),
+          "-",
           "_"
-        ),
-        "-",
-        "_"
+        )
       )
     )
+    :
+    var.identifier
   )
 }

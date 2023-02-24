@@ -1,3 +1,8 @@
+####################
+#
+# Harness Project Provider Requirements
+#
+####################
 terraform {
   required_providers {
     harness = {

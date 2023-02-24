@@ -9,6 +9,17 @@ This collection of Terraform modules focuses on the initial setup of Harness Pla
 
 ## Module Details
 
+### Organizations
+Create and manage new Harness Platform Organizations.  Read more about this module in the [README](organizations/README.md)
+### Projects
+Create and manage new Harness Platform Projects.  Read more about this module in the [README](projects/README.md)
+### Variables
+Create and manage new Harness Platform Variables.  Read more about this module in the [README](variables/README.md)
+### Secrets::File
+Create and manage new Harness Platform Secrets - Text.  Read more about this module in the [README](secrets/text/README.md)
+### Secrets::Text
+Create and manage new Harness Platform Secrets - File.  Read more about this module in the [README](secrets/file/README.md)
+
 ## Contributing
 A complete [Contributors Guide](CONTRIBUTING.md) can be found in this repository
 
@@ -17,4 +28,4 @@ Module is maintained by Harness, Inc
 
 ## License
 
-Apache 2 Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-aws-vpc/tree/master/LICENSE) for full details.
+MIT License. See [LICENSE](LICENSE) for full details.

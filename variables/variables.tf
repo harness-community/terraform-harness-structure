@@ -1,16 +1,20 @@
-# Variable Management for Harness Variables
+####################
+#
+# Harness Variable - Variable Definitions
+#
+####################
 variable "identifier" {
   type        = string
   description = "[Optional] Provide a variable identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
-  default = null
+  default     = null
 
   validation {
     condition = (
       var.identifier != null
       ?
-        can(regex("^[0-9A-Za-z][0-9A-Za-z_]{2,127}$", var.identifier))
+      can(regex("^[0-9A-Za-z][0-9A-Za-z_]{2,127}$", var.identifier))
       :
-        true
+      true
     )
     error_message = <<EOF
         Validation of an object failed.
@@ -89,8 +93,7 @@ variable "description" {
 
 variable "value" {
   type        = string
-  description = "[Optional] (String, Sensitive) Value of the Secret"
-  default     = null
+  description = "[Required] Value of the Variable"
 }
 
 variable "tags" {
@@ -105,6 +108,22 @@ variable "tags" {
     error_message = <<EOF
         Validation of an object failed.
             * [Optional] Provide a Map of Tags to associate with the secret
+        EOF
+  }
+}
+
+variable "global_tags" {
+  type        = map(string)
+  description = "[Optional] Provide a Map of Tags to associate with the project and resources created"
+  default     = {}
+
+  validation {
+    condition = (
+      length(keys(var.global_tags)) == length(values(var.global_tags))
+    )
+    error_message = <<EOF
+        Validation of an object failed.
+            * [Optional] Provide a Map of Tags to associate with the project and resources created
         EOF
   }
 }

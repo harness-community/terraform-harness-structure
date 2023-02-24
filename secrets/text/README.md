@@ -1,65 +1,113 @@
-# secrets
+# Terraform Modules for Harness Secrets - Text
+Terraform Module for creating and managing Harness Text Secrets
 
-## Example
-
-```hcl
-module "secrets-azure-container-services" {
-  source = "../../secrets"
-
-  name            = "Azure Container Registry Client Secret"
-  description     = "Azure Container Registry Client ID"
-  organization_id = module.harness-core.organization_details.id
-  secret_manager  = "harnessSecretManager"
-  type            = "text"
-  value_type      = "Inline"
-  value           = var.azure_container_registry_client_secret
-  tags = {
-    purpose = "azure-container-registry"
-  }
-  global_tags = var.global_tags
-}
-```
-
-## Requirements
-
-No requirements.
+## Summary
+This module handle the creation and managment of Text Secrets by leveraging the Harness Terraform provider
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_harness"></a> [harness](#provider\_harness) | n/a |
-| <a name="provider_time"></a> [time](#provider\_time) | n/a |
+```
+terraform {
+  required_providers {
+    harness = {
+      source = "harness/harness"
+    }
+    time = {
+      source = "hashicorp/time"
+    }
+  }
+}
+```
 
-## Modules
+## Variables
 
-No modules.
+_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name_
 
-## Resources
+| Name | Description | Type | Default Value | Mandatory |
+| --- | --- | --- | --- | --- |
+| name | [Required] Provide a secrets name.  Must be two or more characters | string | | X |
+| secret_manager | [Required] (String) Identifier of the Secret Manager used to manage the secret. | string | harnessSecretManager | X |
+| identifier | [Optional] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| organization_id | [Optional] Provide an organization reference ID.  Must exist before execution | string | null | |
+| project_id | [Optional] Provide an project reference ID.  Must exist before execution | string | null | |
+| description | [Optional] (String) Description of the resource. | string | Harness Secret created via Terraform | |
+| value_type | [Optional] (String) This has details to specify if the secret value is Inline or Reference. | string | Inline | |
+| value | [Optional] (String, Sensitive) Value of the Secret | string | null | |
+| tags | [Optional] Provide a Map of Tags to associate with the secret | map(string) | {} | |
+| global_tag | [Optional] Provide a Map of Tags to associate with the project and resources created | map(string) | {} | |
 
-| Name | Type |
-|------|------|
-| [harness_platform_secret_text.text](https://registry.terraform.io/providers/harness/harness/latest/docs/resources/platform_secret_text) | resource |
-| [time_sleep.secret_setup](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+## Examples
+### Add text as a secret within the Account
+```
+module "secret" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
 
-## Inputs
+  name        = "test_secret"
+  value       = "mysecret"
+}
+```
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_description"></a> [description](#input\_description) | [Optional] (String) Description of the resource. | `string` | `"Harness Secret created via Terraform"` | no |
-| <a name="input_global_tags"></a> [global\_tags](#input\_global\_tags) | [Optional] Provide a Map of Tags to associate with the secret and resources created | `map(any)` | `{}` | no |
-| <a name="input_name"></a> [name](#input\_name) | [Required] Provide a secrets name.  Must be two or more characters | `string` | n/a | yes |
-| <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | [Required] Provide an organization reference ID.  Must exist before execution | `string` | `null` | no |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | [Required] Provide an project reference ID.  Must exist before execution | `string` | `null` | no |
-| <a name="input_secret_manager"></a> [secret\_manager](#input\_secret\_manager) | [Required] (String) Identifier of the Secret Manager used to manage the secret. | `string` | `"harnessSecretManager"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | [Optional] Provide a Map of Tags to associate with the secret | `map(any)` | `{}` | no |
-| <a name="input_type"></a> [type](#input\_type) | [Required] (String) Secret Type - One of 'file', 'text', 'sshkey' | `string` | n/a | yes |
-| <a name="input_value"></a> [value](#input\_value) | [Optional] (String, Sensitive) Value of the Secret | `string` | `null` | no |
-| <a name="input_value_type"></a> [value\_type](#input\_value\_type) | [Required] (String) This has details to specify if the secret value is Inline or Reference. | `string` | `"Inline"` | no |
+### Add text as a secret within the Project
+```
+module "secret" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
 
-## Outputs
+  name            = "test_secret"
+  organization_id = "myorg"
+  project_id      = "myproject"
+  value           = "mysecret"
+}
+```
 
-| Name | Description |
-|------|-------------|
-| <a name="output_secret_details"></a> [secret\_details](#output\_secret\_details) | n/a |
-| <a name="output_success"></a> [success](#output\_success) | n/a |
+
+### Add multiple secrets in a project
+```
+variable "secrets" {
+    type = list(map)
+    default = [
+        {
+            name = "test1"
+            value = "value1"
+        },
+        {
+            name = "test2"
+            value = "value2"
+        },
+        {
+            name = "test3"
+            value = "value3"
+        }
+    ]
+}
+
+variable "global_tags" {
+    type = map(string)
+    default = {
+        environment = "NonProd"
+    }
+}
+
+module "secrets" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/text"
+  for_each = { for secret in var.secrets : secret.name => secret}
+
+  name            = each.value.name
+  description     = "Text Secret - ${each.value.name}"
+  organization_id = "myorg"
+  project_id      = "myproject"
+  secret_manager  = "harnessSecretManager"
+  value           = each.value.value
+  global_tags     = var.global_tags
+}
+
+```
+
+## Contributing
+A complete [Contributors Guide](../CONTRIBUTING.md) can be found in this repository
+
+## Authors
+Module is maintained by Harness, Inc
+
+## License
+
+MIT License. See [LICENSE](../LICENSE) for full details.

@@ -1,6 +1,6 @@
 ####################
 #
-# Harness Variable Provider Requirements
+# Harness Secret File Provider Requirements
 #
 ####################
 terraform {

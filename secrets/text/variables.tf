@@ -1,16 +1,20 @@
-# Variable Management for Harness Secrets
+####################
+#
+# Harness Secret Text Variables
+#
+####################
 variable "identifier" {
   type        = string
   description = "[Required] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
-  default = null
+  default     = null
 
   validation {
     condition = (
       var.identifier != null
       ?
-        can(regex("^[0-9A-Za-z][0-9A-Za-z_]{2,127}$", var.identifier))
+      can(regex("^[0-9A-Za-z][0-9A-Za-z_]{2,127}$", var.identifier))
       :
-        true
+      true
     )
     error_message = <<EOF
         Validation of an object failed.
@@ -108,7 +112,7 @@ variable "secret_manager" {
 
 variable "value_type" {
   type        = string
-  description = "[Required] (String) This has details to specify if the secret value is Inline or Reference."
+  description = "[Optional] (String) This has details to specify if the secret value is Inline or Reference."
   default     = "Inline"
 
   validation {
@@ -117,7 +121,7 @@ variable "value_type" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] (String) This has details to specify if the secret value is Inline or Reference.
+            * [Optional] (String) This has details to specify if the secret value is Inline or Reference.
         EOF
   }
 }
@@ -140,6 +144,22 @@ variable "tags" {
     error_message = <<EOF
         Validation of an object failed.
             * [Optional] Provide a Map of Tags to associate with the secret
+        EOF
+  }
+}
+
+variable "global_tags" {
+  type        = map(any)
+  description = "[Optional] Provide a Map of Tags to associate with the project and resources created"
+  default     = {}
+
+  validation {
+    condition = (
+      length(keys(var.global_tags)) == length(values(var.global_tags))
+    )
+    error_message = <<EOF
+        Validation of an object failed.
+            * [Optional] Provide a Map of Tags to associate with the project and resources created
         EOF
   }
 }

@@ -1,70 +1,105 @@
-# projects
+# Terraform Modules for Harness Projects
+Terraform Module for creating and managing Harness Projects
 
-## Example
+## Summary
+This module handle the creation and managment of projects by leveraging the Harness Terraform provider
 
-```hcl
-module "project-harness-management" {
-  source = "../../projects"
+## Providers
 
-  name            = "harness-management"
-  organization_id = module.harness-core.organization_details.id
-  color           = "#83A38C"
-  description     = "Project to support Harness Management Pipelines"
-  tags = {
-    role = "platform-management"
+```
+terraform {
+  required_providers {
+    harness = {
+      source = "harness/harness"
+    }
+    time = {
+      source = "hashicorp/time"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
   }
-  global_tags = var.global_tags
+}
+```
+
+## Variables
+
+_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name_
+
+| Name | Description | Type | Default Value | Mandatory |
+| --- | --- | --- | --- | --- |
+| name | [Required] Provide an organization name.  Must be two or more characters | string | | X |
+| organization_id | [Required] Provide an organization reference ID.  Must exist before execution | string | | X |
+| identifier | [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| description | [Optional] Provide an organization description.  Must be six or more characters | string | "Harness Organization created via Terraform" | |
+| color | [Optional] (String) Color of the project. | string | null | |
+| tags | [Optional] Provide a Map of Tags to associate with the organization | map(any) | {} | |
+| global_tags | [Optional] Provide a Map of Tags to associate with all organizations and resources created | map(any) | {} | |
+
+## Examples
+### Build a Single Project with minimal inputs
+```
+module "project" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//projects"
+
+  name            = "project1"
+  organization_id = "myorg"
+}
+```
+
+### Build multiple projects
+```
+variable "project_list" {
+    type = list(map())
+    default = [
+        {
+            name = "alpha"
+            description = "Project for alpha"
+            tags = {
+                purpose = "alpha"
+            }
+        },
+        {
+            name = "bravo"
+            description = "Project for bravo"
+            tags = {
+                purpose = "bravo"
+            }
+        },
+        {
+            name = "charlie"
+            description = "Project for charlie"
+            tags = {
+                purpose = "charlie"
+            }
+        }
+    ]
 }
 
-module "project-harness-organization-management" {
-  source = "../../projects"
+variable "global_tags" {
+    type = map()
+    default = {
+        environment = "NonProd"
+    }
+}
 
-  name            = "harness-organization-management"
-  organization_id = module.harness-core.organization_details.id
-  color           = "#4287F5"
-  description     = "Project to support Harness Organization Management Pipelines"
-  tags = {
-    role = "organization-management"
-  }
+module "projects" {
+  source = "git@github.com:harness-community/terraform-harness-structure.git//projects"
+  for_each = { for project in var.project_list : project.name => project }
+
+  name        = each.value.name
+  description = each.value.description
+  tags        = each.value.tags
   global_tags = var.global_tags
 }
 ```
 
-## Requirements
+## Contributing
+A complete [Contributors Guide](../CONTRIBUTING.md) can be found in this repository
 
-No requirements.
+## Authors
+Module is maintained by Harness, Inc
 
-## Providers
+## License
 
-| Name | Version |
-|------|---------|
-| <a name="provider_harness"></a> [harness](#provider\_harness) | n/a |
-| <a name="provider_time"></a> [time](#provider\_time) | n/a |
-
-## Modules
-
-No modules.
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [harness_platform_project.project](https://registry.terraform.io/providers/harness/harness/latest/docs/resources/platform_project) | resource |
-| [time_sleep.project_setup](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_color"></a> [color](#input\_color) | [Optional] (String) Color of the project. | `string` | `null` | no |
-| <a name="input_description"></a> [description](#input\_description) | [Optional] (String) Description of the resource. | `string` | `"Harness Project created via Terraform"` | no |
-| <a name="input_global_tags"></a> [global\_tags](#input\_global\_tags) | [Optional] Provide a Map of Tags to associate with the project and resources created | `map(any)` | `{}` | no |
-| <a name="input_name"></a> [name](#input\_name) | [Required] Provide a project name.  Must be two or more characters | `string` | n/a | yes |
-| <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | [Required] Provide an organization reference ID.  Must exist before execution | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | [Optional] Provide a Map of Tags to associate with the project | `map(any)` | `{}` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_project_details"></a> [project\_details](#output\_project\_details) | n/a |
+MIT License. See [LICENSE](../LICENSE) for full details.

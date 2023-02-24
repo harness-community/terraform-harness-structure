@@ -26,5 +26,5 @@ variable "harness_platform_key" {
 variable "global_tags" {
   type        = map(any)
   description = "[Optional] Provide a Map of Tags to associate with all organizations and resources create"
-  default = {}
+  default     = {}
 }

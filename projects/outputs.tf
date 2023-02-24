@@ -1,3 +1,8 @@
+####################
+#
+# Harness Project Outputs
+#
+####################
 output "project_details" {
   depends_on = [
     time_sleep.project_setup

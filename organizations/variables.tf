@@ -1,5 +1,28 @@
+####################
+#
+# Harness Organization Variables
+#
+####################
+variable "identifier" {
+  type        = string
+  description = "[Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
+  default     = null
 
-# Organization Setup Details
+  validation {
+    condition = (
+      var.identifier != null
+      ?
+      can(regex("^[0-9A-Za-z][0-9A-Za-z_]{2,127}$", var.identifier))
+      :
+      true
+    )
+    error_message = <<EOF
+        Validation of an object failed.
+            * [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'.
+            Note: If not set, Terraform will auto-assign an identifier based on the name of the resource
+        EOF
+  }
+}
 variable "name" {
   type        = string
   description = "[Required] Provide an organization name.  Must be two or more characters"
@@ -7,6 +30,7 @@ variable "name" {
   validation {
     condition = (
       length(var.name) > 2
+      # can(regex("^[0-9A-Za-z][0-9A-Za-z_- ]{2,127}$", var.name))
     )
     error_message = <<EOF
         Validation of an object failed.

@@ -1,4 +1,8 @@
-# Variable Management
+####################
+#
+# Harness Variable
+#
+####################
 resource "harness_platform_variables" "var" {
 
   # [Required] (String) Unique identifier of the resource.
@@ -17,11 +21,11 @@ resource "harness_platform_variables" "var" {
   project_id = var.project_id
 
   # (String) Type of Variable
-  type       = "String"
+  type = "String"
 
   spec {
     # (String) Type of Value of the Variable. For now only FIXED is supported
-    value_type  = "FIXED"
+    value_type = "FIXED"
 
     # (String) FixedValue of the variable
     fixed_value = var.value

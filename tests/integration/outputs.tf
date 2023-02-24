@@ -1,7 +1,7 @@
 output "organizations" {
-  value = module.organizations.organization_details
+  value = local.organization_outputs
 }
 
 output "projects" {
-  value = module.projects.project_details
+  value = local.project_outputs
 }
