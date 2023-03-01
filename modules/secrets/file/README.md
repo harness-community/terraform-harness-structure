@@ -39,7 +39,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Add a single file as a secret within the Account
 ```
 module "secret" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/secrets/file"
 
   name        = "test_file"
   file_path   = "file.yml"
@@ -49,7 +49,7 @@ module "secret" {
 ### Add a single file as a secret within the Project
 ```
 module "secret" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/secrets/file"
 
   name            = "test_file"
   organization_id = "myorg"
@@ -77,7 +77,7 @@ variable "global_tags" {
 }
 
 module "secrets" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/secrets/file"
   for_each = { for secret in var.secret_files : basename(secret) => secret}
 
   name            = each.key

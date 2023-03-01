@@ -38,7 +38,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Add text as a variable within the Account
 ```
 module "harness_variables" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//variables"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/variables"
 
   name        = "test_var"
   value       = "myvalue"
@@ -48,7 +48,7 @@ module "harness_variables" {
 ### Add text as a variable within the Project
 ```
 module "harness_variables" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//variables"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/variables"
 
   name            = "test_var"
   organization_id = "myorg"
@@ -86,7 +86,7 @@ variable "global_tags" {
 }
 
 module "harness_variables" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//variables"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/variables"
   for_each = { for harness_variable in var.harness_variables : harness_variable.name => harness_variable}
 
   name            = each.value.name

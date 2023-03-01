@@ -40,7 +40,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Add text as a secret within the Account
 ```
 module "secret" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/secrets/file"
 
   name        = "test_secret"
   value       = "mysecret"
@@ -50,7 +50,7 @@ module "secret" {
 ### Add text as a secret within the Project
 ```
 module "secret" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/file"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/secrets/file"
 
   name            = "test_secret"
   organization_id = "myorg"
@@ -88,7 +88,7 @@ variable "global_tags" {
 }
 
 module "secrets" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//secrets/text"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/secrets/text"
   for_each = { for secret in var.secrets : secret.name => secret}
 
   name            = each.value.name

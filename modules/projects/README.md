@@ -40,7 +40,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a Single Project with minimal inputs
 ```
 module "project" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//projects"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/projects"
 
   name            = "project1"
   organization_id = "myorg"
@@ -84,7 +84,7 @@ variable "global_tags" {
 }
 
 module "projects" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//projects"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/projects"
   for_each = { for project in var.project_list : project.name => project }
 
   name            = each.value.name

@@ -35,7 +35,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a Single Organization with minimal inputs
 ```
 module "organization" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//organizations"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/organizations"
 
   name        = "myorg"
 }
@@ -78,7 +78,7 @@ variable "global_tags" {
 }
 
 module "organizations" {
-  source = "git@github.com:harness-community/terraform-harness-structure.git//organizations"
+  source = "git@github.com:harness-community/terraform-harness-structure.git//modules/organizations"
   for_each = { for org in var.organization_list : org.name => org }
 
   name        = each.value.name
