@@ -15,7 +15,7 @@ module "projects_minimal" {
     time_sleep.organization_setup
   ]
 
-  source = "../../projects"
+  source = "../../modules/projects"
 
   name            = "Project Minimal"
   organization_id = local.organization_id
@@ -26,7 +26,7 @@ module "projects_standard" {
     time_sleep.organization_setup
   ]
 
-  source = "../../projects"
+  source = "../../modules/projects"
 
   name            = "Project Standard"
   description     = "Testing Project for Terraform Module"
@@ -38,7 +38,7 @@ module "projects_full" {
     time_sleep.organization_setup
   ]
 
-  source = "../../projects"
+  source = "../../modules/projects"
 
   identifier = "test_project_with_id"
   name            = "Project Full"

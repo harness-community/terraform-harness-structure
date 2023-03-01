@@ -8,11 +8,5 @@ output "variable_details" {
     time_sleep.variable_setup
   ]
   value = harness_platform_variables.var
-}
-
-output "success" {
-  depends_on = [
-    time_sleep.variable_setup
-  ]
-  value = true
+  description = "Details for the created Harness Variable"
 }

@@ -12,13 +12,13 @@ locals {
 }
 
 module "organizations_minimal" {
-  source = "../../organizations"
+  source = "../../modules/organizations"
 
   name        = "${local.fmt_prefix}-terraform-harness-structure-minimum"
 }
 
 module "organizations_standard" {
-  source = "../../organizations"
+  source = "../../modules/organizations"
 
   name        = "${local.fmt_prefix}-terraform-harness-structure-standard"
   description = "Standard Harness Organization Created by Terraform Module"
@@ -27,7 +27,7 @@ module "organizations_standard" {
 }
 
 module "organizations_full" {
-  source = "../../organizations"
+  source = "../../modules/organizations"
 
   identifier  = "${local.fmt_prefix}_TerraformHarnessStructure_custom"
   name        = "${local.fmt_prefix}-terraform-harness-structure-custom"

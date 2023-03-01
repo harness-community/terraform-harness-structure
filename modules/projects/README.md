@@ -87,10 +87,11 @@ module "projects" {
   source = "git@github.com:harness-community/terraform-harness-structure.git//projects"
   for_each = { for project in var.project_list : project.name => project }
 
-  name        = each.value.name
-  description = each.value.description
-  tags        = each.value.tags
-  global_tags = var.global_tags
+  name            = each.value.name
+  description     = each.value.description
+  organization_id = "myorg"
+  tags            = each.value.tags
+  global_tags     = var.global_tags
 }
 ```
 

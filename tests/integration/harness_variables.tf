@@ -3,7 +3,7 @@ module "variables_account" {
     time_sleep.project_setup
   ]
 
-  source = "../../variables"
+  source = "../../modules/variables"
 
   name            = "${local.organization_name}-terraform-test-var"
   value           = "Test Variable"
@@ -15,7 +15,7 @@ module "variables_organization" {
     time_sleep.project_setup
   ]
 
-  source = "../../variables"
+  source = "../../modules/variables"
 
   name            = "${local.organization_name}-terraform-test-var"
   description     = "Harness Variable created via Terraform"
@@ -29,7 +29,7 @@ module "variables_project" {
     time_sleep.project_setup
   ]
 
-  source = "../../variables"
+  source = "../../modules/variables"
 
   name            = "terraform-test-var"
   description     = "Harness Variable created via Terraform"

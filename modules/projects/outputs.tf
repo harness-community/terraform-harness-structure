@@ -8,4 +8,5 @@ output "project_details" {
     time_sleep.project_setup
   ]
   value = harness_platform_project.project
+  description = "Details for the created Harness Project"
 }

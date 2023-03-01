@@ -4,7 +4,7 @@ module "secret_text_account" {
     time_sleep.project_setup
   ]
 
-  source = "../../secrets/text"
+  source = "../../modules/secrets/text"
 
   name            = "${local.organization_name}-terraform-test-secret-text"
   value           = "Nothing"
@@ -16,7 +16,7 @@ module "secret_text_org" {
     time_sleep.project_setup
   ]
 
-  source = "../../secrets/text"
+  source = "../../modules/secrets/text"
 
   name            = "${local.organization_name}-terraform-test-secret-text"
   description     = "Harness Secret Text created via Terraform"
@@ -31,7 +31,7 @@ module "secret_text_project" {
     time_sleep.project_setup
   ]
 
-  source = "../../secrets/text"
+  source = "../../modules/secrets/text"
 
   name            = "terraform-test-secret-text"
   description     = "Harness Secret Text created via Terraform"
@@ -54,7 +54,7 @@ module "secret_file_account" {
   ]
 
 
-  source = "../../secrets/file"
+  source = "../../modules/secrets/file"
 
   name            = "${local.organization_name}-terraform-test-secret-file"
   file_path      = "${path.module}/README.md"
@@ -66,7 +66,7 @@ module "secret_file_org" {
   ]
 
 
-  source = "../../secrets/file"
+  source = "../../modules/secrets/file"
 
   name            = "${local.organization_name}-terraform-test-secret-file"
   description     = "Harness Secret Text created via Terraform"
@@ -81,7 +81,7 @@ module "secret_file_project" {
   ]
 
 
-  source = "../../secrets/file"
+  source = "../../modules/secrets/file"
 
   name            = "terraform-test-secret-file"
   description     = "Harness Secret Text created via Terraform"

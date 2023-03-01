@@ -8,12 +8,6 @@ output "secret_details" {
     time_sleep.secret_setup
   ]
   value     = harness_platform_secret_text.text
+  description = "Details for the created Harness Secret Text"
   sensitive = true
-}
-
-output "success" {
-  depends_on = [
-    time_sleep.secret_setup
-  ]
-  value = true
 }
