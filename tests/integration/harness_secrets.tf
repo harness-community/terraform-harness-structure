@@ -6,8 +6,8 @@ module "secret_text_account" {
 
   source = "../../modules/secrets/text"
 
-  name            = "${local.organization_name}-terraform-test-secret-text"
-  value           = "Nothing"
+  name  = "${local.organization_name}-terraform-test-secret-text"
+  value = "Nothing"
 
 }
 
@@ -40,10 +40,10 @@ module "secret_text_project" {
   secret_manager  = "harnessSecretManager"
   value_type      = "Inline"
   value           = "Nothing"
-  tags            = {
+  tags = {
     role = "project"
   }
-  global_tags     = local.common_tags
+  global_tags = local.common_tags
 
 }
 
@@ -56,8 +56,8 @@ module "secret_file_account" {
 
   source = "../../modules/secrets/file"
 
-  name            = "${local.organization_name}-terraform-test-secret-file"
-  file_path      = "${path.module}/README.md"
+  name      = "${local.organization_name}-terraform-test-secret-file"
+  file_path = "${path.module}/README.md"
 
 }
 module "secret_file_org" {
@@ -71,7 +71,7 @@ module "secret_file_org" {
   name            = "${local.organization_name}-terraform-test-secret-file"
   description     = "Harness Secret Text created via Terraform"
   organization_id = local.organization_id
-  file_path      = "${path.module}/README.md"
+  file_path       = "${path.module}/README.md"
   tags            = local.common_tags
 
 }
@@ -89,9 +89,9 @@ module "secret_file_project" {
   project_id      = local.project_id
   secret_manager  = "harnessSecretManager"
   file_path       = "${path.module}/README.md"
-  tags            = {
+  tags = {
     role = "testing"
   }
-  global_tags     = local.common_tags
+  global_tags = local.common_tags
 
 }

@@ -3,7 +3,7 @@ locals {
   project_id = module.projects_standard.project_details.id
   project_outputs = flatten([
     {
-      minimum = module.projects_minimal.project_details
+      minimum  = module.projects_minimal.project_details
       standard = module.projects_standard.project_details
       complete = module.projects_full.project_details
     }
@@ -40,14 +40,14 @@ module "projects_full" {
 
   source = "../../modules/projects"
 
-  identifier = "test_project_with_id"
+  identifier      = "test_project_with_id"
   name            = "Project Full"
   description     = "Testing Project for Terraform Module"
   organization_id = local.organization_id
-  tags            = {
+  tags = {
     type = "complete"
   }
-  global_tags     = local.common_tags
+  global_tags = local.common_tags
 }
 
 # Common Handler to use for dependency management across tests

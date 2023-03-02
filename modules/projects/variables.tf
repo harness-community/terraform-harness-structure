@@ -62,9 +62,9 @@ variable "color" {
     condition = (
       var.color != null
       ?
-        can(regex("^#([A-Fa-f0-9]{6})", var.color))
+      can(regex("^#([A-Fa-f0-9]{6})", var.color))
       :
-        true
+      true
     )
     error_message = <<EOF
         Validation of an object failed.

@@ -1,17 +1,17 @@
 locals {
   fmt_prefix = (
-      lower(
+    lower(
+      replace(
         replace(
-          replace(
-            var.prefix,
-            " ",
-            "_"
-          ),
-          "-",
+          var.prefix,
+          " ",
           "_"
-        )
+        ),
+        "-",
+        "_"
       )
     )
+  )
 
   common_tags = merge(
     var.global_tags,
