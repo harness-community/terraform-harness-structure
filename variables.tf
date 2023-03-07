@@ -11,13 +11,15 @@ variable "harness_platform_url" {
 
 variable "harness_platform_account" {
   type        = string
-  description = "[Required] Enter the Harness Platform Account Number"
+  description = "[Optional] Enter the Harness Platform Account Number. Otherwise set HARNESS_ACCOUNT_ID in your environemnt"
+  default     = null
   sensitive   = true
 }
 
 variable "harness_platform_key" {
   type        = string
-  description = "[Required] Enter the Harness Platform API Key for your account"
+  description = "[Optional] Enter the Harness Platform API Key for your account. Otherwise set HARNESS_PLATFORM_API_KEY in your environemnt"
+  default     = null
   sensitive   = true
 }
 

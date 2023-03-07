@@ -4,6 +4,7 @@
 provider "registry.terraform.io/harness/harness" {
   version = "0.14.10"
   hashes = [
+    "h1:/tHPUUfXRgQt7pCiA1behIoWUeHGNzAvHuw1HDQptk8=",
     "h1:l/4+udNCIr4KRg+ZgycwhDX7Hl+HjvVmsFbDK4WjbAU=",
     "zh:058ddc3a3bb8f537597b49505be9b68005a9c8d730fcd489be728340e20ad26c",
     "zh:185818a56fc3f2a29528a76d53b40aeb5ef94659b3fdebcf212069d568196edb",

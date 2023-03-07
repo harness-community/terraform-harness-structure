@@ -39,7 +39,7 @@ variable "name" {
 
 variable "organization_id" {
   type        = string
-  description = "[Required] Provide an organization reference ID.  Must exist before execution"
+  description = "[Optional] Provide an organization reference ID.  Must exist before execution"
   default     = null
 
   validation {
@@ -51,14 +51,14 @@ variable "organization_id" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] Provide an organization name.  Must exist before execution.
+            * [Optional] Provide an organization name.  Must exist before execution.
         EOF
   }
 }
 
 variable "project_id" {
   type        = string
-  description = "[Required] Provide an project reference ID.  Must exist before execution"
+  description = "[Optional] Provide an project reference ID.  Must exist before execution"
   default     = null
 
   validation {
@@ -70,7 +70,7 @@ variable "project_id" {
     )
     error_message = <<EOF
         Validation of an object failed.
-            * [Required] Provide an project name.  Must exist before execution.
+            * [Optional] Provide an project name.  Must exist before execution.
         EOF
   }
 }

@@ -5,8 +5,8 @@ module "variables_account" {
 
   source = "../../modules/variables"
 
-  name            = "${local.organization_name}-terraform-test-var"
-  value           = "Test Variable"
+  name  = "${local.organization_name}-terraform-test-var"
+  value = "Test Variable"
 
 }
 
@@ -36,9 +36,9 @@ module "variables_project" {
   organization_id = local.organization_id
   project_id      = local.project_id
   value           = "Test Value"
-  tags            = {
+  tags = {
     role = "testing-var"
   }
-  global_tags     = local.common_tags
+  global_tags = local.common_tags
 
 }

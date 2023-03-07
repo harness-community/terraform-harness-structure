@@ -1,10 +1,10 @@
 # Format Organization Test outputs
 locals {
-  organization_id = module.organizations_standard.organization_details.id
+  organization_id   = module.organizations_standard.organization_details.id
   organization_name = module.organizations_standard.organization_details.name
   organization_outputs = flatten([
     {
-      minimum = module.organizations_minimal.organization_details
+      minimum  = module.organizations_minimal.organization_details
       standard = module.organizations_standard.organization_details
       complete = module.organizations_full.organization_details
     }
@@ -14,7 +14,7 @@ locals {
 module "organizations_minimal" {
   source = "../../modules/organizations"
 
-  name        = "${local.fmt_prefix}-terraform-harness-structure-minimum"
+  name = "${local.fmt_prefix}-terraform-harness-structure-minimum"
 }
 
 module "organizations_standard" {
@@ -32,7 +32,7 @@ module "organizations_full" {
   identifier  = "${local.fmt_prefix}_TerraformHarnessStructure_custom"
   name        = "${local.fmt_prefix}-terraform-harness-structure-custom"
   description = "Full Harness Organization Created by Terraform Module"
-  tags        = {
+  tags = {
     type = "complete"
   }
   global_tags = local.common_tags
