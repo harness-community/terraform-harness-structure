@@ -90,4 +90,11 @@ full_suite:
 	@(for version in `cat .terraform_versions`; do \
 		echo "Running Full Suite tests for Terraform Version: $$version"; \
 		make all TERRAFORM_VERSION=$$version; \
+		error_code="$$?"; \
+		case "$$error_code" in \
+		2) \
+		 echo "Failed to run tests on version: $$version"; \
+		 echo "$$error_code"; \
+		 exit 1; \
+		esac; \
 	done;)
