@@ -89,6 +89,12 @@ variable "description" {
   }
 }
 
+variable "existing" {
+  type        = bool
+  description = "[Optional] Is this an existing organization?"
+  default     = false
+}
+
 variable "tags" {
   type        = map(any)
   description = "[Optional] Provide a Map of Tags to associate with the project"
