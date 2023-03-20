@@ -4,20 +4,27 @@ Terraform Module for creating and managing Harness File Secrets
 ## Summary
 This module handle the creation and managment of File Secrets by leveraging the Harness Terraform provider
 
+## Supported Terraform Versions
+    - v1.3.7
+    - v1.3.8
+    - v1.3.9
+    - v1.4.0
+
 ## Providers
 
 ```
 terraform {
   required_providers {
     harness = {
-      source = "harness/harness"
+      source  = "harness/harness"
+      version = "~> 0.14.0"
     }
     time = {
-      source = "hashicorp/time"
+      source  = "hashicorp/time"
+      version = "~> 0.9.1"
     }
   }
 }
-```
 
 ## Variables
 

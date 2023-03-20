@@ -4,9 +4,10 @@ locals {
   organization_name = module.organizations_standard.organization_details.name
   organization_outputs = flatten([
     {
-      minimum  = module.organizations_minimal.organization_details
-      standard = module.organizations_standard.organization_details
-      complete = module.organizations_full.organization_details
+      minimum     = module.organizations_minimal.organization_details
+      standard    = module.organizations_standard.organization_details
+      complete    = module.organizations_full.organization_details
+      lookup_only = module.organizations_lookup_only.organization_details
     }
   ])
 }
@@ -38,12 +39,20 @@ module "organizations_full" {
   global_tags = local.common_tags
 }
 
+module "organizations_lookup_only" {
+  source = "../../modules/organizations"
+
+  name     = "${local.fmt_prefix}-terraform-harness-structure-minimum"
+  existing = true
+}
+
 # Common Handler to use for dependency management across tests
 resource "time_sleep" "organization_setup" {
   depends_on = [
     module.organizations_minimal,
     module.organizations_standard,
-    module.organizations_full
+    module.organizations_full,
+    module.organizations_lookup_only
   ]
   create_duration = "1s"
 }
