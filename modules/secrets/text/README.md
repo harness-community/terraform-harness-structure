@@ -36,6 +36,12 @@ _Note: When the identifier variable is not provided, the module will automatical
 | tags | [Optional] Provide a Map of Tags to associate with the secret | map(string) | {} | |
 | global_tag | [Optional] Provide a Map of Tags to associate with the project and resources created | map(string) | {} | |
 
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness secret | Map containing details of created secret
+| secret_details | [Deprecated] Details for the created Harness secret | Map containing details of created secret
+
 ## Examples
 ### Add text as a secret within the Account
 ```

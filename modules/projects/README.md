@@ -36,6 +36,12 @@ _Note: When the identifier variable is not provided, the module will automatical
 | tags | [Optional] Provide a Map of Tags to associate with the organization | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with all organizations and resources created | map(any) | {} | |
 
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness project | Map containing details of created project
+| project_details | [Deprecated] Details for the created Harness project | Map containing details of created project
+
 ## Examples
 ### Build a Single Project with minimal inputs
 ```
