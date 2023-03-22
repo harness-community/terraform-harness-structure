@@ -9,6 +9,7 @@ This module handle the creation and managment of Platform Variables by leveragin
     - v1.3.8
     - v1.3.9
     - v1.4.0
+    - v1.4.2
 
 ## Providers
 
@@ -17,7 +18,7 @@ terraform {
   required_providers {
     harness = {
       source  = "harness/harness"
-      version = "~> 0.14.0"
+      version = ">= 0.14"
     }
     time = {
       source  = "hashicorp/time"
@@ -25,6 +26,7 @@ terraform {
     }
   }
 }
+```
 
 ## Variables
 

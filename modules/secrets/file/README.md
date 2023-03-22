@@ -17,7 +17,7 @@ terraform {
   required_providers {
     harness = {
       source  = "harness/harness"
-      version = "~> 0.14.0"
+      version = ">= 0.14"
     }
     time = {
       source  = "hashicorp/time"
@@ -25,6 +25,7 @@ terraform {
     }
   }
 }
+```
 
 ## Variables
 
