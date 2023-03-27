@@ -13,13 +13,19 @@ This module handle the creation and managment of organizations by leveraging the
 ## Providers
 This module requires that the calling template has defined the [Harness Provider - Docs](https://registry.terraform.io/providers/harness/harness/latest/docs) authentication.
 
+### Example setup of the Harness Provider Authentication with environment variables
+You can also set up authentication with Harness through environment variables. To do this set the following items in your environment:
+- HARNESS_ENDPOINT: Harness Platform URL, defaults to Harness SaaS URL: https://app.harness.io/gateway
+- HARNESS_ACCOUNT_ID: Harness Platform Account Number
+- HARNESS_PLATFORM_API_KEY: Harness Platform API Key for your account
+
 ### Example setup of the Harness Provider
 ```
 # Provider Setup Details
 variable "harness_platform_url" {
   type        = string
   description = "[Optional] Enter the Harness Platform URL.  Defaults to Harness SaaS URL"
-  default     = "https://app.harness.io/gateway"
+  default     = null # If Not passed, then the ENV HARNESS_ENDPOINT will be used or the default value of "https://app.harness.io/gateway"
 }
 
 variable "harness_platform_account" {
@@ -43,6 +49,7 @@ provider "harness" {
 }
 
 ```
+
 
 ### Terraform required providers declaration
 ```
