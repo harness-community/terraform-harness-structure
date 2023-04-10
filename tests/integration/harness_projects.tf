@@ -53,7 +53,8 @@ module "projects_full" {
 
 module "projects_lookup_only" {
   depends_on = [
-    time_sleep.organization_setup
+    time_sleep.organization_setup,
+    module.projects_minimal
   ]
 
   source = "../../modules/projects"

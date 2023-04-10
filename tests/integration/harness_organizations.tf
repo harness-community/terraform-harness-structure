@@ -40,6 +40,9 @@ module "organizations_full" {
 }
 
 module "organizations_lookup_only" {
+  depends_on = [
+    module.organizations_minimal
+  ]
   source = "../../modules/organizations"
 
   name     = "${local.fmt_prefix}-terraform-harness-structure-minimum"
