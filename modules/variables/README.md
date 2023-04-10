@@ -5,11 +5,18 @@ Terraform Module for creating and managing Harness Platform Variables
 This module handle the creation and managment of Platform Variables by leveraging the Harness Terraform provider
 
 ## Supported Terraform Versions
-    - v1.3.7
-    - v1.3.8
+_Note: These modules require a minimum of Terraform Version 1.2.0 to support the Input Validations and Precondition Lifecycle hooks leveraged in the code._
+
+_Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
+
+    - v1.2.9
     - v1.3.9
     - v1.4.0
     - v1.4.2
+    - v1.4.3
+    - v1.4.4
+
+_Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
 ## Providers
 This module requires that the calling template has defined the [Harness Provider - Docs](https://registry.terraform.io/providers/harness/harness/latest/docs) authentication.
