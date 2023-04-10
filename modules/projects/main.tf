@@ -34,9 +34,10 @@ resource "harness_platform_project" "project" {
 }
 
 data "harness_platform_project" "selected" {
-  count  = var.existing ? 1 : 0
-  name   = var.name
-  org_id = var.organization_id
+  count = var.existing ? 1 : 0
+  # [Required] (String) Unique identifier of the resource.
+  identifier = local.fmt_identifier
+  org_id     = var.organization_id
 }
 
 # When creating a new Project, there is a potential race-condition

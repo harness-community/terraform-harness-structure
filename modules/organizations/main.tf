@@ -19,7 +19,8 @@ resource "harness_platform_organization" "organization" {
 
 data "harness_platform_organization" "selected" {
   count = var.existing ? 1 : 0
-  name  = var.name
+  # [Required] (String) Unique identifier of the resource.
+  identifier = local.fmt_identifier
 }
 
 # When creating a new Organization, there is a potential
