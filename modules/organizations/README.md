@@ -81,8 +81,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
-| name | [Required] Provide an organization name.  Must be two or more characters | string | | X |
-| identifier | [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| name | [Required] Provide an organization name. Must be at least 1 character but but less than 128 characters | string | | X |
+| identifier | [Optional] Provide a custom identifier.  Must be at least 1 character but but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | description | [Optional] Provide an organization description.  Must be six or more characters | string | "Harness Organization created via Terraform" | |
 | existing | [Optional] Is this an existing organization? | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the organization | map(any) | {} | |

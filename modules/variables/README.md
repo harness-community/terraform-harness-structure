@@ -80,9 +80,9 @@ _Note: When the identifier variable is not provided, the module will automatical
 
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
-| name | [Required] Provide a secrets name.  Must be two or more characters | string | | X |
+| name | [Required] Provide a secrets name.  Must be at least 1 character but but less than 128 characters | string | | X |
 | value | [Required] Value of the Variable | string | | X |
-| identifier | [Optional] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| identifier | [Optional] Provide a secrets identifier. Must be at least 1 character but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | organization_id | [Optional] Provide an organization reference ID.  Must exist before execution | string | null | |
 | project_id | [Optional] Provide an project reference ID.  Must exist before execution | string | null | |
 | description | [Optional] (String) Description of the resource. | string | Harness Secret created via Terraform | |
