@@ -47,6 +47,28 @@ module "secret_text_project" {
 
 }
 
+module "secret_text_project_case_sensitive" {
+  depends_on = [
+    time_sleep.project_setup
+  ]
+
+  source = "../../modules/secrets/text"
+
+  name            = "Terraform Test Secret Text CaseSensitive"
+  description     = "Harness Secret Text created via Terraform"
+  organization_id = local.organization_id
+  project_id      = local.project_id
+  secret_manager  = "harnessSecretManager"
+  value_type      = "Inline"
+  value           = "Nothing"
+  tags = {
+    role = "project"
+  }
+  global_tags    = local.common_tags
+  case_sensitive = true
+
+}
+
 # Files
 module "secret_file_account" {
   depends_on = [
@@ -93,5 +115,26 @@ module "secret_file_project" {
     role = "testing"
   }
   global_tags = local.common_tags
+
+}
+module "secret_file_project_case_sensitive" {
+  depends_on = [
+    time_sleep.project_setup
+  ]
+
+
+  source = "../../modules/secrets/file"
+
+  name            = "Terraform Test Secret File CaseSensitive"
+  description     = "Harness Secret Text created via Terraform"
+  organization_id = local.organization_id
+  project_id      = local.project_id
+  secret_manager  = "harnessSecretManager"
+  file_path       = "${path.module}/README.md"
+  tags = {
+    role = "testing"
+  }
+  global_tags    = local.common_tags
+  case_sensitive = true
 
 }

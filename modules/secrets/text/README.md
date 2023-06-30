@@ -76,7 +76,7 @@ terraform {
 
 ## Variables
 
-_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name_
+_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name and the identifier will be in lowercase format with all spaces and hyphens replaced with '\_'. To override the case lowering, you must set the parameter `case_sensitive: true`_
 
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
@@ -88,6 +88,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 | description | [Optional] (String) Description of the resource. | string | Harness Secret created via Terraform | |
 | value_type | [Optional] (String) This has details to specify if the secret value is Inline or Reference. | string | Inline | |
 | value | [Optional] (String, Sensitive) Value of the Secret | string | null | |
+| case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the secret | map(string) | {} | |
 | global_tag | [Optional] Provide a Map of Tags to associate with the project and resources created | map(string) | {} | |
 

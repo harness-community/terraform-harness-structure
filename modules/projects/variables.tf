@@ -90,7 +90,13 @@ variable "description" {
 
 variable "existing" {
   type        = bool
-  description = "[Optional] Is this an existing organization?"
+  description = "[Optional] Is this an existing project?"
+  default     = false
+}
+
+variable "case_sensitive" {
+  type        = bool
+  description = "[Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier)"
   default     = false
 }
 

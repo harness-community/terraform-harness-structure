@@ -96,6 +96,12 @@ variable "value" {
   description = "[Required] Value of the Variable"
 }
 
+variable "case_sensitive" {
+  type        = bool
+  description = "[Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier)"
+  default     = false
+}
+
 variable "tags" {
   type        = map(any)
   description = "[Optional] Provide a Map of Tags to associate with the secret"

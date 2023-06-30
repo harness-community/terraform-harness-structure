@@ -20,17 +20,29 @@ locals {
     local.required_tags
   ])
 
-  fmt_identifier = (
-    lower(
-      replace(
+  auto_identifier = (
         replace(
-          var.name,
-          " ",
+          replace(
+            var.name,
+            " ",
+            "_"
+          ),
+          "-",
           "_"
-        ),
-        "-",
-        "_"
-      )
+        )
+  )
+
+  fmt_identifier = (
+    var.identifier == null
+    ?
+    (
+      var.case_sensitive
+      ?
+      local.auto_identifier
+      :
+      lower(local.auto_identifier)
     )
+    :
+    var.identifier
   )
 }

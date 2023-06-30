@@ -5,6 +5,7 @@ locals {
   organization_outputs = flatten([
     {
       minimum     = module.organizations_minimal.organization_details
+      lowercase   = module.organizations_minimal_case_sensitive.organization_details
       standard    = module.organizations_standard.organization_details
       complete    = module.organizations_full.organization_details
       lookup_only = module.organizations_lookup_only.organization_details
@@ -16,6 +17,13 @@ module "organizations_minimal" {
   source = "../../modules/organizations"
 
   name = "${local.fmt_prefix}-terraform-harness-structure-minimum"
+}
+
+module "organizations_minimal_case_sensitive" {
+  source = "../../modules/organizations"
+
+  name           = "${local.fmt_prefix} Terraform Harness Structure Minimum CaseSensitive"
+  case_sensitive = true
 }
 
 module "organizations_standard" {
