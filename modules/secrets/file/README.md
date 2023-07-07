@@ -11,10 +11,10 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
 
     - v1.2.9
     - v1.3.9
-    - v1.4.0
-    - v1.4.2
-    - v1.4.3
-    - v1.4.4
+    - v1.4.6
+    - v1.5.0
+    - v1.5.1
+    - v1.5.2
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -76,17 +76,18 @@ terraform {
 
 ## Variables
 
-_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name_
+_Note: When the identifier variable is not provided, the module will automatically format the identifier based on the provided resource name and the identifier will be in lowercase format with all spaces and hyphens replaced with '\_'. To override the case lowering, you must set the parameter `case_sensitive: true`_
 
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
-| name | [Required] Provide a secrets name.  Must be two or more characters | string | | X |
+| name | [Required] Provide a secrets name.  Must be at least 1 character but but less than 128 characters | string | | X |
 | secret_manager | [Required] (String) Identifier of the Secret Manager used to manage the secret. | string | harnessSecretManager | X |
 | file_path | [Required] (String) Path of the file containing secret value | string | | X |
-| identifier | [Optional] Provide a secrets identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| identifier | [Optional] Provide a secrets identifier.  Must be at least 1 character but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | organization_id | [Optional] Provide an organization reference ID.  Must exist before execution | string | null | |
 | project_id | [Optional] Provide an project reference ID.  Must exist before execution | string | null | |
 | description | [Optional] (String) Description of the resource. | string | Harness Secret created via Terraform | |
+| case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the secret | map(string) | {} | |
 | global_tag | [Optional] Provide a Map of Tags to associate with the project and resources created | map(string) | {} | |
 

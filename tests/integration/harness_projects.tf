@@ -4,6 +4,7 @@ locals {
   project_outputs = flatten([
     {
       minimum     = module.projects_minimal.project_details
+      lowercase   = module.projects_minimal_case_sensitive.project_details
       standard    = module.projects_standard.project_details
       complete    = module.projects_full.project_details
       lookup_only = module.projects_lookup_only.project_details
@@ -20,6 +21,18 @@ module "projects_minimal" {
 
   name            = "Project Minimal"
   organization_id = local.organization_id
+}
+
+module "projects_minimal_case_sensitive" {
+  depends_on = [
+    time_sleep.organization_setup
+  ]
+
+  source = "../../modules/projects"
+
+  name            = "Project Minimal CaseSensitive"
+  organization_id = local.organization_id
+  case_sensitive  = true
 }
 
 module "projects_standard" {

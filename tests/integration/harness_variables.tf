@@ -42,3 +42,23 @@ module "variables_project" {
   global_tags = local.common_tags
 
 }
+
+module "variables_project_case_sensitive" {
+  depends_on = [
+    time_sleep.project_setup
+  ]
+
+  source = "../../modules/variables"
+
+  name            = "Terraform Test Var CaseSensitive"
+  description     = "Harness Variable created via Terraform"
+  organization_id = local.organization_id
+  project_id      = local.project_id
+  value           = "Test Value"
+  tags = {
+    role = "testing-var"
+  }
+  global_tags    = local.common_tags
+  case_sensitive = true
+
+}
